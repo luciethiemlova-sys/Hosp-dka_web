@@ -11,7 +11,17 @@ function App() {
     ]
   }
 
-  const [selectedImg, setSelectedImg] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setSelectedIndex((prev) => (prev + 1) % images.gallery.length);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setSelectedIndex((prev) => (prev - 1 + images.gallery.length) % images.gallery.length);
+  };
 
   return (
     <div className="app">
@@ -129,11 +139,11 @@ function App() {
                   <div
                     key={index}
                     className="gallery-item"
-                    onClick={() => setSelectedImg(img)}
+                    onClick={() => setSelectedIndex(index)}
                   >
                     <img src={img} alt={`Galerie ${index}`} />
                     <div className="gallery-overlay">
-                      <span>Zvětšit 🔍</span>
+                      <div className="gallery-icon">🔍</div>
                     </div>
                   </div>
                 ))}
@@ -141,11 +151,20 @@ function App() {
             </div>
 
             {/* Lightbox Modal */}
-            {selectedImg && (
-              <div className="lightbox" onClick={() => setSelectedImg(null)}>
-                <div className="lightbox-content">
-                  <button className="lightbox-close" onClick={() => setSelectedImg(null)}>&times;</button>
-                  <img src={selectedImg} alt="Zvětšený náhled" onClick={(e) => e.stopPropagation()} />
+            {selectedIndex !== null && (
+              <div className="lightbox" onClick={() => setSelectedIndex(null)}>
+                <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+                  <button className="lightbox-close" onClick={() => setSelectedIndex(null)}>&times;</button>
+
+                  <button className="lightbox-nav prev" onClick={prevImage}>
+                    &#10094;
+                  </button>
+
+                  <img src={images.gallery[selectedIndex]} alt="Zvětšený náhled" />
+
+                  <button className="lightbox-nav next" onClick={nextImage}>
+                    &#10095;
+                  </button>
                 </div>
               </div>
             )}
