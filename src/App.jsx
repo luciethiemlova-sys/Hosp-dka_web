@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function App() {
   const images = {
@@ -12,6 +12,21 @@ function App() {
   }
 
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    // Show popup only before April 2nd, 2026
+    const expirationDate = new Date('2026-04-03T00:00:00');
+    const now = new Date();
+    
+    if (now < expirationDate) {
+      // Small delay for better UX
+      const timer = setTimeout(() => {
+        setShowPopup(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const nextImage = (e) => {
     e.stopPropagation();
@@ -209,6 +224,16 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* GRAND OPENING POPUP */}
+      {showPopup && (
+        <div className="popup-overlay" onClick={() => setShowPopup(false)}>
+          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+            <button className="popup-close" onClick={() => setShowPopup(false)} aria-label="Zavřít">&times;</button>
+            <img src="/opening-popup.jpg" alt="Slavnostní otevření" className="popup-image" />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
