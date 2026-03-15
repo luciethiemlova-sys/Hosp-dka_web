@@ -230,6 +230,10 @@ function App() {
         <div className="popup-overlay" onClick={() => setShowPopup(false)}>
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
             <button className="popup-close" onClick={() => setShowPopup(false)} aria-label="Zavřít">&times;</button>
+            <div className="popup-announcement">
+              <div>🎉 Otevíráme už <span className="popup-date">1. 4.</span> 🎉</div>
+              <div>2. 4. je otevření s programem!</div>
+            </div>
             <img src="/opening-popup.jpg" alt="Slavnostní otevření" className="popup-image" />
           </div>
         </div>

@@ -588,6 +588,31 @@ section {
   }
 }
 
+.popup-announcement {
+  background: var(--pitch-green);
+  color: white;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+.popup-date {
+  color: var(--beer-gold);
+  font-size: 1.4rem;
+  animation: pulsDate 1.2s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes pulsDate {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
 @media (max-width: 768px) {
   .popup-content {
     max-width: 95%;
@@ -597,12 +622,21 @@ section {
   .popup-image {
     max-height: 90vh;
   }
-  
+
   .popup-close {
     top: 10px;
     right: 10px;
     width: 36px;
     height: 36px;
     font-size: 1.5rem;
+  }
+
+  .popup-announcement {
+    font-size: 0.95rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .popup-date {
+    font-size: 1.2rem;
   }
 }
